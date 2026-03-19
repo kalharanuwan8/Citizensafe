@@ -25,7 +25,7 @@ const Input = ({
         {icon && (
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-(--color-text-secondary)
                            pointer-events-none transition-colors duration-150
-                           [&:has(~input:focus)]:text-indigo-500">
+                           [&:has(~input:focus)]:text-(--color-brand)">
             {icon}
           </span>
         )}
@@ -40,7 +40,7 @@ const Input = ({
             'placeholder:text-(--color-text-tertiary)',
             'outline-none transition-[border-color,box-shadow] duration-150',
             'hover:border-(--color-border-primary)',
-            'focus:border-indigo-500 focus:shadow-[0_0_0_3px_rgba(99,102,241,.12)]',
+            'focus:border-(--color-brand) focus:shadow-[0_0_0_3px_rgba(30,41,59,.12)]',
             'disabled:opacity-55 disabled:cursor-not-allowed disabled:bg-(--color-background-secondary)',
             error
               ? 'border-red-400 focus:border-red-400 focus:shadow-[0_0_0_3px_rgba(239,68,68,.1)]'

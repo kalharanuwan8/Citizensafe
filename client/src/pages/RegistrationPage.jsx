@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import RegistrationFrom from '../../components/auth/RegistrationForm'
+import RegistrationFrom from '../components/auth/RegistrationForm'
 
 const RegistrationPage = () => {
   return (

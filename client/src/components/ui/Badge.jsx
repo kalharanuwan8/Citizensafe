@@ -2,17 +2,17 @@ import React from 'react';
 
 const VARIANTS = {
   default: 'bg-[var(--color-background-secondary)] text-[var(--color-text-secondary)] border-[var(--color-border-secondary)]',
-  primary: 'bg-indigo-50 text-indigo-700 border-indigo-200',
+  primary: 'bg-slate-100 text-slate-800 border-slate-200',
   success: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-  danger:  'bg-red-50 text-red-800 border-red-200',
+  danger:  'bg-rose-50 text-rose-800 border-rose-200',
   warning: 'bg-amber-50 text-amber-800 border-amber-200',
   info:    'bg-blue-50 text-blue-800 border-blue-200',
 };
 
 const DOT_COLORS = {
-  primary: 'bg-indigo-500',
+  primary: 'bg-slate-600',
   success: 'bg-emerald-500',
-  danger:  'bg-red-500',
+  danger:  'bg-rose-600',
   warning: 'bg-amber-500',
   info:    'bg-blue-500',
 };

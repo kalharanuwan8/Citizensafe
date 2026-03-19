@@ -21,4 +21,4 @@ const confirmationSchema = new mongoose.Schema({
     timestamps: true
 })
 confirmationSchema.index({disasterId: 1, userId: 1}, {unique: true})
-export default mongoose.model("Confirmation", confirmationSchema);
+export default mongoose.models.Confirmation || mongoose.model("Confirmation", confirmationSchema);

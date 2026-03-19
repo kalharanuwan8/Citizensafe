@@ -31,9 +31,9 @@ const SIZES = {
 // ── Variants ──────────────────────────────────────────────────────────────────
 const VARIANTS = {
   primary:
-    'bg-indigo-600 text-white ' +
-    'shadow-[0_1px_2px_rgba(79,70,229,.3),inset_0_1px_0_rgba(255,255,255,.15)] ' +
-    'hover:bg-indigo-700 hover:shadow-[0_4px_12px_rgba(79,70,229,.4)]',
+    'bg-(--color-brand) text-white ' +
+    'shadow-[0_1px_2px_rgba(15,23,42,.3),inset_0_1px_0_rgba(255,255,255,.15)] ' +
+    'hover:bg-(--color-brand-hover) hover:shadow-[0_4px_12px_rgba(15,23,42,.4)]',
 
   secondary:
     'bg-[var(--color-background-secondary)] text-[var(--color-text-primary)] ' +
@@ -41,9 +41,9 @@ const VARIANTS = {
     'hover:bg-[var(--color-background-tertiary)] hover:border-[var(--color-border-primary)]',
 
   danger:
-    'bg-red-600 text-white ' +
-    'shadow-[0_1px_2px_rgba(220,38,38,.3),inset_0_1px_0_rgba(255,255,255,.12)] ' +
-    'hover:bg-red-700 hover:shadow-[0_4px_12px_rgba(220,38,38,.35)]',
+    'bg-(--color-danger) text-white ' +
+    'shadow-[0_1px_2px_rgba(225,29,72,.3),inset_0_1px_0_rgba(255,255,255,.12)] ' +
+    'hover:bg-(--color-danger-hover) hover:shadow-[0_4px_12px_rgba(225,29,72,.35)]',
 
   ghost:
     'bg-transparent text-[var(--color-text-primary)] ' +
@@ -51,9 +51,9 @@ const VARIANTS = {
     'hover:border-[var(--color-border-primary)] hover:bg-[var(--color-background-secondary)]',
 
   success:
-    'bg-emerald-600 text-white ' +
-    'shadow-[0_1px_2px_rgba(5,150,105,.3),inset_0_1px_0_rgba(255,255,255,.12)] ' +
-    'hover:bg-emerald-700 hover:shadow-[0_4px_12px_rgba(5,150,105,.35)]',
+    'bg-(--color-success) text-white ' +
+    'shadow-[0_1px_2px_rgba(16,185,129,.3),inset_0_1px_0_rgba(255,255,255,.12)] ' +
+    'hover:bg-emerald-600 hover:shadow-[0_4px_12px_rgba(16,185,129,.35)]',
 };
 
 // Whether the spinner should use the dark (visible-on-light) track
@@ -93,7 +93,7 @@ const Button = ({
         'duration-[120ms,150ms,150ms,150ms]',
         'ease-[cubic-bezier(.34,1.56,.64,1)]',
         // interaction
-        'outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/50',
+        'outline-none focus-visible:ring-2 focus-visible:ring-slate-400/50',
         'hover:-translate-y-px active:translate-y-0 active:scale-[.96]',
         // overflow (keeps ripple contained)
         'relative overflow-hidden',

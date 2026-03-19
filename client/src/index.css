@@ -1,1 +1,200 @@
-@import 'tailwindcss'
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+
+/* ── Design Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Backgrounds */
+  --color-background-primary:   #ffffff;
+  --color-background-secondary: #f8fafc;
+  --color-background-tertiary:  #f1f5f9;
+
+  /* Text */
+  --color-text-primary:   #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-tertiary:  #64748b;
+
+  /* Borders */
+  --color-border-primary:   rgba(15, 23, 42, 0.12);
+  --color-border-secondary: rgba(15, 23, 42, 0.08);
+  --color-border-tertiary:  rgba(15, 23, 42, 0.05);
+
+  /* Brand */
+  --color-brand:         #1e293b;
+  --color-brand-hover:   #0f172a;
+  --color-brand-accent:  #6366f1;
+  --color-danger:        #e11d48;
+  --color-danger-hover:  #be123c;
+  --color-success:       #10b981;
+  --color-warning:       #f59e0b;
+
+  /* Gradients */
+  --gradient-danger: linear-gradient(135deg, #e11d48 0%, #be123c 100%);
+  --gradient-brand:  linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --gradient-hero:   linear-gradient(135deg, #1e293b 0%, #e11d48 100%);
+}
+
+/* ── Base ──────────────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+}
+
+/* ── Utility: hide scrollbar but keep functionality ────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* ── Safe-area utility ──────────────────────────────────────────────────────── */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* ── Glass effect helper ───────────────────────────────────────────────────── */
+.glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 24px rgba(15, 23, 42, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────────── */
+
+/* Blob background animation */
+@keyframes blob {
+  0%   { transform: translate(0px, 0px) scale(1); }
+  33%  { transform: translate(30px, -50px) scale(1.1); }
+  66%  { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+.animate-blob {
+  animation: blob 9s infinite alternate cubic-bezier(0.45, 0, 0.55, 1);
+}
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* Slide-up entrance */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.animation-delay-100 { animation-delay: 0.1s; }
+.animation-delay-200 { animation-delay: 0.2s; }
+
+/* Pulsing ring/halo */
+@keyframes pulse-ring {
+  0%   { transform: scale(0.85); opacity: 0.9; }
+  70%  { transform: scale(1.4);  opacity: 0; }
+  100% { transform: scale(1.4);  opacity: 0; }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 1.8s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Sheet slide up */
+@keyframes sheet-in {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+.animate-sheet-in {
+  animation: sheet-in 0.35s cubic-bezier(0.32, 0.72, 0, 1) both;
+}
+
+/* Dashed border animation for upload zone */
+@keyframes dash-spin {
+  to { stroke-dashoffset: -100; }
+}
+
+/* Gradient button shimmer */
+@keyframes btn-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Panic Mode: Shake animation */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+  40%, 60% { transform: translate3d(4px, 0, 0); }
+}
+.animate-shake {
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Panic Mode: Intense Pulse */
+@keyframes intense-pulse {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0.7); }
+  70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(225, 29, 72, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+}
+.animate-intense-pulse {
+  animation: intense-pulse 1.5s infinite;
+}
+
+/* Panic Mode: Heat Shimmer (for Fire) */
+@keyframes heat-shimmer {
+  0% { filter: contrast(1.1) brightness(1.1) blur(0px); }
+  50% { filter: contrast(1.2) brightness(1.2) blur(1px); transform: translateY(-1px); }
+  100% { filter: contrast(1.1) brightness(1.1) blur(0px); }
+}
+.animate-heat {
+  animation: heat-shimmer 2s infinite alternate;
+}
+
+/* Panic Mode: Vignette overlay */
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.4) 100%);
+  pointer-events: none;
+}
+
+/* Panic Mode: Noise effect */
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background: url('https://grainy-gradients.vercel.app/noise.svg');
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Panic Mode: Scanlines (Emergency feel) */
+.scanline {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 51%,
+    rgba(0, 0, 0, 0.05) 52%,
+    transparent 53%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.2;
+}

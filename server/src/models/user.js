@@ -59,14 +59,26 @@ const userSchema = new mongoose.Schema({
             type: [Number],
             
         }
-    },         
+    },
+    profileImage: {
+        type: String,
+        default: ""
+    },
+    isNewUser: {
+        type: Boolean,
+        default: true
+    },
+    fcmToken: {
+        type: String,
+        default: ""
+    }
 }, 
     {
         timestamps: true
     }
 )
- userSchema.index({currentlocation: "2dsphere"});  
- userSchema.index({homelocation: "2dsphere"})
+ userSchema.index({currentLocation: "2dsphere"});  
+ userSchema.index({homeLocation: "2dsphere"})
 
 userSchema.pre('save', async function () {
     if(!this.isModified('password')) 
@@ -75,4 +87,4 @@ userSchema.pre('save', async function () {
 
 });
 
-export default mongoose.model("User", userSchema);
+export default mongoose.models.User || mongoose.model("User", userSchema);

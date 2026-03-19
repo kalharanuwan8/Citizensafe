@@ -1,13 +1,13 @@
-import { PutObjectCommand } from "@aws-sdk/client-s3";
+import { PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
 import {s3} from "../config/aws.config.js";
 import crypto from 'crypto';
 import dotenv from 'dotenv'
 
 dotenv.config()
-export const generateUploadUrl = async() =>
+export const generateUploadUrl = async(folder = 'disasters') =>
 {
-    const key = `disasters/${crypto.randomUUID()}.jpg`;
+    const key = `${folder}/${crypto.randomUUID()}.jpg`;
     console.log("Generated key:", key,
         process.env.S3_BUCKET_NAME
     );
@@ -15,11 +15,20 @@ export const generateUploadUrl = async() =>
     const command = new PutObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME,
         Key: key,
-        ContentType: "images/jpeg"
+        ContentType: "image/jpeg"
     })
-    const uploadurl = await getSignedUrl(s3, command, {expiresIn: 60});
+    const uploadurl = await getSignedUrl(s3, command, {expiresIn: 3600});
     return {
         uploadurl,
         key
     }
 }
+
+export const getViewingUrl = async (key) => {
+    if (!key) throw new Error("Key is required");
+    const command = new GetObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: key,
+    });
+    return await getSignedUrl(s3, command, { expiresIn: 3600 });
+};

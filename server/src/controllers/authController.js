@@ -5,11 +5,11 @@ export async function registerUser (req, res)
    try {
      const {firstName, lastName, email, password} = req.body;
      const user = await AuthService.registerUser({firstName, lastName,email, password});
-     return res.status(201).json({message: "User created Succesfully",
+     return res.status(201).json({message: "User registered successfully",
         user    
      })
    } catch (error) {
-     if (error.message === "User Already Exists") {
+     if (error.message === "Email already exists" || error.message === "Password must be at least 6 characters") {
             return res.status(400).json({ error: error.message });
         }
         return res.status(500).json({error: error.message})
@@ -28,8 +28,8 @@ export async function loginUser(req, res)
             user
         })
     } catch (error) {
-         if (error.message === "User Already Exists") {
-            return res.status(400).json({ error: error.message });
+         if (error.message === "Invalid email or password") {
+            return res.status(401).json({ error: error.message });
         }
         return res.status(500).json({error: "Internal Server Error"})
     }

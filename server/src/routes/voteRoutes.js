@@ -1,7 +1,7 @@
 import express from 'express'
-import confimationbyvote from '../controllers/confirmationController'
+import confimationbyvote from '../controllers/confirmationController.js'
 
 const router = express.Router();
-app.use("/", confimationbyvote);
+router.post("/", confimationbyvote);
 
 export default router;

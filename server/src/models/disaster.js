@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const disasterSchema = new mongoose.Schema ({
     disasterType:{
         type: String,
-        enum:["flood", "Landslide", "Accident", "Fire", "other"],
+        enum:["flood", "Landslide", "Accident", "Fire", "earthquake", "power_outage", "other"],
         required: true
     },
     description: {
@@ -51,4 +51,4 @@ const disasterSchema = new mongoose.Schema ({
 
 )
 disasterSchema.index({location: "2dsphere"});
-export default mongoose.model("disaster", disasterSchema);
+export default mongoose.models.disaster || mongoose.model("disaster", disasterSchema);

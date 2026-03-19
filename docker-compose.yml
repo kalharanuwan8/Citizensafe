@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - ./server/.env
+
+  frontend:
+    build: 
+      context: ./client
+      args:
+        - VITE_API_URL=http://localhost:5000/api
+        - VITE_GOOGLE_MAPS_KEY=AIzaSyAduTm1kLyXYgqmrvcoY8NBTev6mkE-EeE
+        - VITE_GOOGLE_MAP_ID=9ab1fc48dc4873fc85a28a88
+        - VITE_FIREBASE_API_KEY=AIzaSyC1z9_3hWIriH6cuSuSXu4xGku9k06VX8k
+        - VITE_FIREBASE_AUTH_DOMAIN=citizensafe-34c38.firebaseapp.com
+        - VITE_FIREBASE_PROJECT_ID=citizensafe-34c38
+        - VITE_FIREBASE_STORAGE_BUCKET=citizensafe-34c38.firebasestorage.app
+        - VITE_FIREBASE_MESSAGING_SENDER_ID=2055142955
+        - VITE_FIREBASE_APP_ID=1:2055142955:web:cf207ffcd3a1e6d04a346e
+        - VITE_FIREBASE_MEASUREMENT_ID=G-S7TLM4SN37
+        - VITE_FIREBASE_VAPID_PUBLIC_KEY=BDvvbcEjkqVSYQ5VbWIT0ygtrdWqXxuLT5fJ4ZM0cal4iaPAGZ3nHmeajMmVhn7v-3F0jml4u5H6Nrl1QdEy-xI
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
