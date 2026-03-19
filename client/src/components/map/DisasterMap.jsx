@@ -39,6 +39,7 @@ const DisasterMap = ({ hideLegend = false, center, markers = [], onCenterChange 
         onCenterChanged={e => onCenterChange && onCenterChange(e.detail.center)}
         mapId={import.meta.env.VITE_GOOGLE_MAP_ID || "DEMO_MAP_ID"}
         disableDefaultUI={true}
+        gestureHandling="greedy"
       >
         {markers.map((m, i) => {
           if (m.type === 'current_location') {
