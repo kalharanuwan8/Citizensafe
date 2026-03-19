@@ -7,6 +7,7 @@ import { APIProvider } from '@vis.gl/react-google-maps';
 import { createDisaster, DISASTER_TYPES } from '../services/disasterService';
 import { uploadImage } from '../services/uploadService';
 import useGeolocation from '../hooks/useGeolocation';
+import { useAuth } from '../context/AuthContext';
 
 // ── Icon helpers ───────────────────────────────────────────────────────────────
 const LocationPin = () => (
@@ -87,6 +88,7 @@ const DEFAULT_CENTER = { lat: 6.9271, lng: 79.8612 };
 
 const ReportDisasterPage = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [step, setStep] = useState('map');
 
   const { location: userLocation } = useGeolocation();
@@ -106,8 +108,22 @@ const ReportDisasterPage = () => {
     if (userLocation && !hasSetInitialLocation) {
       setCoords(userLocation);
       setHasSetInitialLocation(true);
+    } else if (!hasSetInitialLocation && user) {
+      if (user.currentLocation?.coordinates?.length >= 2) {
+        setCoords({
+          lat: user.currentLocation.coordinates[1],
+          lng: user.currentLocation.coordinates[0]
+        });
+        setHasSetInitialLocation(true);
+      } else if (user.homeLocation?.coordinates?.length >= 2) {
+        setCoords({
+          lat: user.homeLocation.coordinates[1],
+          lng: user.homeLocation.coordinates[0]
+        });
+        setHasSetInitialLocation(true);
+      }
     }
-  }, [userLocation, hasSetInitialLocation]);
+  }, [userLocation, hasSetInitialLocation, user]);
 
   const currentStep = step === 'map' ? 1 : 2;
 

@@ -63,8 +63,18 @@ const HomePage = () => {
   useEffect(() => {
     if (userLocation) {
       setCenter(userLocation);
+    } else if (user?.currentLocation?.coordinates?.length >= 2) {
+      setCenter({
+        lat: user.currentLocation.coordinates[1],
+        lng: user.currentLocation.coordinates[0]
+      });
+    } else if (user?.homeLocation?.coordinates?.length >= 2) {
+      setCenter({
+        lat: user.homeLocation.coordinates[1],
+        lng: user.homeLocation.coordinates[0]
+      });
     }
-  }, [userLocation]);
+  }, [userLocation, user]);
 
   useEffect(() => {
     let cancelled = false;
