@@ -10,7 +10,7 @@ services:
     build: 
       context: ./client
       args:
-        - VITE_API_URL=http://localhost:5000/api
+        - VITE_API_URL=http://13.53.197.186:3000
         - VITE_GOOGLE_MAPS_KEY=AIzaSyAduTm1kLyXYgqmrvcoY8NBTev6mkE-EeE
         - VITE_GOOGLE_MAP_ID=9ab1fc48dc4873fc85a28a88
         - VITE_FIREBASE_API_KEY=AIzaSyC1z9_3hWIriH6cuSuSXu4xGku9k06VX8k
