@@ -35,7 +35,7 @@ connectDB();
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl)
-    const allowedSubstrings = ['localhost','192.168.1.10'];
+    const allowedSubstrings = ['localhost','192.168.1.10', 'http://13.53.197.186:3000'];
     
     const isAllowed = !origin || allowedSubstrings.some(sub => origin.includes(sub));
 
