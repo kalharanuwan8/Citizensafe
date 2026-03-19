@@ -93,7 +93,7 @@ const LoginForm = () => {
 
           {/* Heading */}
           <div className="mb-5">
-            <h1 className="text-[22px] font-bold text-gray-900 leading-tight">Welcome  back 👋</h1>
+            <h1 className="text-[22px] font-bold text-gray-900 leading-tight">Welcome back 👋</h1>
             <p className="text-[13px] text-gray-500 mt-1">Sign in to your CitizenSafe account</p>
           </div>
 

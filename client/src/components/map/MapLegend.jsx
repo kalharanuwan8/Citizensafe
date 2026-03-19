@@ -8,10 +8,11 @@ import React from 'react';
 //   style     — inline style overrides (e.g. positioning)
 
 const LEGEND_ITEMS = [
-  { color: '#EF4444', label: 'Verified Disaster'   },
-  { color: '#F59E0B', label: 'Unverified Disaster' },
-  { color: '#10B981', label: 'Resolved'             },
-  { color: '#3B82F6', label: 'Your Location'        },
+  { color: '#EF4444', label: 'Verified Disaster',   icon: 'badge' },
+  { color: '#F59E0B', label: 'Unverified Disaster', icon: 'badge' },
+  { color: '#10B981', label: 'Resolved Disaster',   icon: 'badge' },
+  { color: '#3B82F6', label: 'Your Location',       icon: 'dot'   },
+  { color: '#6366F1', label: 'Home Location',       icon: 'home'  },
 ];
 
 const MapLegend = ({ className = '', style = {} }) => (
@@ -35,17 +36,33 @@ const MapLegend = ({ className = '', style = {} }) => (
       Legend
     </p>
 
-    {LEGEND_ITEMS.map(({ color, label }) => (
+    {LEGEND_ITEMS.map(({ color, label, icon }) => (
       <div key={label} className="flex items-center gap-2.5">
-        {/* Marker dot */}
-        <span
-          className="w-3 h-3 rounded-full shrink-0 ring-2"
-          style={{
-            background:  color,
-            ringColor:   `${color}40`,
-            boxShadow:   `0 0 0 2px ${color}30`,
-          }}
-        />
+        {icon === 'badge' && (
+          <span
+            className="w-3.5 h-3.5 rounded-full shrink-0 ring-2 relative"
+            style={{
+              background:  color,
+              ringColor:   `${color}40`,
+              boxShadow:   `0 0 0 2px ${color}30`,
+            }}
+          />
+        )}
+        {icon === 'dot' && (
+          <span
+            className="w-3.5 h-3.5 rounded-full shrink-0 relative"
+            style={{
+              background:  color,
+              border:      '2px solid white',
+              boxShadow:   `0 0 0 2px ${color}30`,
+            }}
+          />
+        )}
+        {icon === 'home' && (
+          <span className="w-4 h-4 text-[12px] flex items-center justify-center -ml-0.5 mr-0.5">
+            🏠
+          </span>
+        )}
         <span className="text-[11.5px] font-medium text-gray-700 whitespace-nowrap">
           {label}
         </span>

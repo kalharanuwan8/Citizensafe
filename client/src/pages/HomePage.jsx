@@ -128,6 +128,7 @@ const HomePage = () => {
       lat: d.location?.coordinates[1] || 0,
       lng: d.location?.coordinates[0] || 0,
       type: d.disasterType,
+      status: d.status,
       isHome: false
     })),
     ...homeDisasters.map(d => ({
@@ -135,6 +136,7 @@ const HomePage = () => {
       lat: d.location?.coordinates[1] || 0,
       lng: d.location?.coordinates[0] || 0,
       type: d.disasterType,
+      status: d.status,
       isHome: true
     }))
   ];
