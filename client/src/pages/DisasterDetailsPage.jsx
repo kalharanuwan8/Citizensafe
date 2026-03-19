@@ -5,6 +5,8 @@ import DisasterDetails  from '../components/disaster/DisasterDetails';
 import { getDisasterById, confirmDisaster } from '../services/disasterService';
 import { uploadImage } from '../services/uploadService';
 
+import { useAuth } from '../context/AuthContext';
+
 // Map backend enum → UI display type
 const TYPE_LABEL = {
   flood:     'Flash Flood',
@@ -35,6 +37,7 @@ const formatTime = (isoString) => {
 const DisasterDetailsPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [disaster, setDisaster] = useState(null);
   const [loading, setLoading]   = useState(true);
@@ -58,6 +61,7 @@ const DisasterDetailsPage = () => {
             : 'Sri Lanka',
           description: data.description,
           reportedBy:  data.reportedBy?.email ?? 'Anonymous',
+          isReporter:  String(data.reportedBy?._id || data.reportedBy) === String(user?._id),
           image:       data.image,
           affectedZones: [],
           emergencyContacts: [

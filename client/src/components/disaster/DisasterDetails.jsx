@@ -278,7 +278,7 @@ const DisasterDetails = ({
 
       {/* ── Footer CTA ───────────────────────────────────────────────────────── */}
       <div className="px-5 pb-8 pt-3 border-t border-[var(--color-border-tertiary)] shrink-0">
-        {d.status === 'Unverified' && (
+        {d.status === 'Unverified' && !d.isReporter && (
           <div className="space-y-3">
             <div className="flex flex-col gap-1.5">
               <label className="text-[12px] font-medium text-gray-700">Attach Proof Photo (Required)</label>
@@ -296,6 +296,11 @@ const DisasterDetails = ({
             <Button variant="success" size="lg" fullWidth onClick={onConfirm}>
               ✓ Confirm This Report
             </Button>
+          </div>
+        )}
+        {d.status === 'Unverified' && d.isReporter && (
+          <div className="text-center p-4 bg-indigo-50 rounded-xl border border-indigo-100">
+             <p className="text-[13px] text-indigo-700 font-medium">You reported this incident. Wait for other users to verify it.</p>
           </div>
         )}
       </div>
