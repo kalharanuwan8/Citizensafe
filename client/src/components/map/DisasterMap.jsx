@@ -1,4 +1,5 @@
-import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, AdvancedMarker, useMap } from '@vis.gl/react-google-maps';
+import { useEffect } from 'react';
 import MapLegend from './MapLegend';
 
 const TYPE_EMOJI = {
@@ -28,19 +29,29 @@ const RING_COLORS = {
   'Resolved': 'bg-emerald-500/40',
 };
 
+const MapController = ({ center }) => {
+  const map = useMap();
+  useEffect(() => {
+    if (map && center) {
+      map.panTo(center);
+    }
+  }, [map, center]);
+  return null;
+};
+
 const DisasterMap = ({ hideLegend = false, center, markers = [], onCenterChange }) => {
-  const mapCenter = center;
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-gray-200">
       <Map
         defaultZoom={13}
-        center={mapCenter}
+        defaultCenter={center}
         onCenterChanged={e => onCenterChange && onCenterChange(e.detail.center)}
         mapId={import.meta.env.VITE_GOOGLE_MAP_ID || "DEMO_MAP_ID"}
         disableDefaultUI={true}
         gestureHandling="greedy"
       >
+        <MapController center={center} />
         {markers.map((m, i) => {
           if (m.type === 'current_location') {
             return (

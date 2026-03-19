@@ -60,22 +60,28 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const { location: userLocation } = useGeolocation();
   const [center, setCenter] = useState(DEFAULT_CENTER);
+  const [hasCentered, setHasCentered] = useState(false);
 
   useEffect(() => {
+    if (hasCentered) return;
+
     if (userLocation) {
       setCenter(userLocation);
+      setHasCentered(true);
     } else if (user?.currentLocation?.coordinates?.length >= 2) {
       setCenter({
         lat: user.currentLocation.coordinates[1],
         lng: user.currentLocation.coordinates[0]
       });
+      setHasCentered(true);
     } else if (user?.homeLocation?.coordinates?.length >= 2) {
       setCenter({
         lat: user.homeLocation.coordinates[1],
         lng: user.homeLocation.coordinates[0]
       });
+      setHasCentered(true);
     }
-  }, [userLocation, user]);
+  }, [userLocation, user, hasCentered]);
 
   useEffect(() => {
     let cancelled = false;
