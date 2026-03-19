@@ -178,7 +178,7 @@ export async function confirmDisasterByUser(req, res) {
         const result = await disasterService.confirmDisaster(id, userId, imageUrl);
         return res.status(200).json(result);
     } catch (error) {
-        if (error.message === "Image is required" || error.message === "You already confirmed this disaster") {
+        if (error.message === "You already confirmed this disaster") {
             return res.status(400).json({ error: error.message });
         }
         return res.status(500).json({ error: error.message || "Internal Server Error" });

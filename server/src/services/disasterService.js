@@ -139,8 +139,6 @@ export const deleteDisaster = async({disasterId, role}) =>
 }
 
 export const confirmDisaster = async (disasterId, userId, imageUrl) => {
-    if (!imageUrl) throw new Error("Image is required");
-    
     const existingConfirmation = await Confirmation.findOne({ disasterId, userId });
     if (existingConfirmation) {
         throw new Error("You already confirmed this disaster");

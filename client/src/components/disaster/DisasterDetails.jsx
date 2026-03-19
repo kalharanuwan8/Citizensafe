@@ -280,19 +280,6 @@ const DisasterDetails = ({
       <div className="px-5 pb-8 pt-3 border-t border-[var(--color-border-tertiary)] shrink-0">
         {d.status === 'Unverified' && !d.isReporter && (
           <div className="space-y-3">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-medium text-gray-700">Attach Proof Photo (Required)</label>
-              <input 
-                type="file" 
-                accept="image/*" 
-                onChange={e => onImageSelect?.(e.target.files[0])} 
-                className="text-[12px] text-gray-500 
-                           file:mr-3 file:py-1.5 file:px-3 file:rounded-md file:border-0 
-                           file:text-[11px] file:font-semibold 
-                           file:bg-emerald-50 file:text-emerald-700 
-                           hover:file:bg-emerald-100 transition-colors"
-              />
-            </div>
             <Button variant="success" size="lg" fullWidth onClick={onConfirm}>
               ✓ Confirm This Report
             </Button>

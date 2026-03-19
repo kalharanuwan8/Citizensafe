@@ -77,13 +77,8 @@ const DisasterDetailsPage = () => {
 
   const handleConfirm = async () => {
     try {
-      if (!confirmImage) {
-        setError('Please attach a proof image to confirm.');
-        return;
-      }
       setLoading(true);
-      const uploadedImage = await uploadImage(confirmImage);
-      await confirmDisaster(id, uploadedImage);
+      await confirmDisaster(id, null);
       alert("Disaster confirmed successfully");
       navigate('/home');
     } catch (err) {
