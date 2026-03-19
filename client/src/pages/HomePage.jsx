@@ -4,7 +4,7 @@ import DisasterMap   from '../components/map/DisasterMap';
 import Header        from '../components/home/Header';
 import BottomPanel   from '../components/home/BottomPanel';
 import DesktopLayout from '../layouts/DesktopLayout';
-import { getNearbyDisasters } from '../services/disasterService';
+import { getNearbyDisasters, getAllDisasters } from '../services/disasterService';
 import { useAuth } from '../context/AuthContext';
 import Chatbot from '../components/ui/Chatbot';
 import useGeolocation from '../hooks/useGeolocation';
@@ -56,6 +56,7 @@ const HomePage = () => {
 
   const [disasters, setDisasters] = useState([]);
   const [homeDisasters, setHomeDisasters] = useState([]);
+  const [allDisastersList, setAllDisastersList] = useState([]);
   const [loading, setLoading] = useState(true);
   const { location: userLocation } = useGeolocation();
   const [center, setCenter] = useState(DEFAULT_CENTER);
@@ -87,12 +88,14 @@ const HomePage = () => {
         const homePromise = (user?.homeLocation?.coordinates && user.homeLocation.coordinates.length > 0) 
           ? getNearbyDisasters(null, null, radius, true) // uses server-side homeLocation
           : Promise.resolve([]);
+        const allPromise = getAllDisasters();
           
-        const [liveData, homeData] = await Promise.all([livePromise, homePromise]);
+        const [liveData, homeData, allData] = await Promise.all([livePromise, homePromise, allPromise]);
         
         if (!cancelled) {
           setDisasters(liveData);
           setHomeDisasters(homeData);
+          setAllDisastersList(allData);
         }
       } catch (err) {
         console.error('Failed to fetch disasters:', err);
@@ -106,6 +109,20 @@ const HomePage = () => {
   }, [center, user?.homeLocation]);
 
   const rawMarkers = [
+    ...(userLocation || user?.currentLocation?.coordinates ? [{
+      id: 'current_loc',
+      lat: userLocation ? userLocation.lat : user.currentLocation.coordinates[1],
+      lng: userLocation ? userLocation.lng : user.currentLocation.coordinates[0],
+      type: 'current_location',
+      isHome: false
+    }] : []),
+    ...(user?.homeLocation?.coordinates?.length >= 2 ? [{
+      id: 'home_loc',
+      lat: user.homeLocation.coordinates[1],
+      lng: user.homeLocation.coordinates[0],
+      type: 'home_location',
+      isHome: true
+    }] : []),
     ...disasters.map(d => ({
       id: d._id,
       lat: d.location?.coordinates[1] || 0,
@@ -187,6 +204,7 @@ const HomePage = () => {
           isHidden={isFullMap}
           disasters={disasters}
           homeDisasters={homeDisasters}
+          allSystemDisasters={allDisastersList}
           loading={loading}
         />
       </div>

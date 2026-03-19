@@ -19,7 +19,7 @@ const MapIcon = () => (
 
 const FILTERS = ['All', 'Verified', 'Unverified'];
 
-const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disasters = [], homeDisasters = [], loading }) => {
+const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disasters = [], homeDisasters = [], allSystemDisasters = [], loading }) => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState('All');
 
@@ -43,6 +43,12 @@ const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disaster
         if (filter === 'Unverified') return s === 'unverified' || s === 'false';
         return true;
       });
+
+  const otherDisasters = (allSystemDisasters || []).filter(d => !uniqueDisasters.some(ud => ud._id === d._id));
+
+  const hasNearby = filtered && filtered.length > 0;
+  const showOther = filter === 'All' && otherDisasters.length > 0;
+  const isEmpty = !hasNearby && !showOther;
 
   return (
     <div
@@ -141,7 +147,7 @@ const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disaster
           <div className="flex justify-center items-center py-10">
             <div className="w-8 h-8 rounded-full border-[3px] border-gray-100 border-t-red-500 animate-spin" />
           </div>
-        ) : (!filtered || filtered.length === 0) ? (
+        ) : isEmpty ? (
           <div className="text-center py-8 px-4 rounded-2xl bg-gray-50 border border-dashed border-gray-200 mx-1">
             <div className="w-12 h-12 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-3">
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="text-emerald-500" stroke="currentColor" strokeWidth="1.8">
@@ -150,11 +156,11 @@ const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disaster
               </svg>
             </div>
             <p className="text-[14px] font-bold text-gray-900">All clear!</p>
-            <p className="text-[12px] text-gray-400 mt-1">No {filter !== 'All' ? filter.toLowerCase() + ' ' : ''}reports in your area.</p>
+            <p className="text-[12px] text-gray-400 mt-1">No {filter !== 'All' ? filter.toLowerCase() + ' ' : ''}reports found.</p>
           </div>
         ) : (
           <div className="flex flex-col gap-2.5 pb-4">
-            {filtered.map(d => (
+            {hasNearby && filtered.map(d => (
               <DisasterCard
                 key={d._id || d.id}
                 type={d.disasterType || d.type}
@@ -166,6 +172,28 @@ const BottomPanel = ({ isOpen, onStateChange, onEnterFullMap, isHidden, disaster
                 showConfirm={d.status === 'Unverified'}
               />
             ))}
+
+            {showOther && (
+              <>
+                <div className="mt-4 mb-2 flex items-center gap-2">
+                  <div className="h-px bg-gray-200 flex-1"></div>
+                  <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">All Disasters</span>
+                  <div className="h-px bg-gray-200 flex-1"></div>
+                </div>
+                {otherDisasters.map(d => (
+                  <DisasterCard
+                    key={d._id || d.id}
+                    type={d.disasterType || d.type}
+                    title={(d.disasterType || d.type) + ' Report'}
+                    distance=""
+                    time="Global"
+                    status={d.status}
+                    onClick={() => navigate(`/disaster/${d._id || d.id}`)}
+                    showConfirm={d.status === 'Unverified'}
+                  />
+                ))}
+              </>
+            )}
           </div>
         )}
       </div>
