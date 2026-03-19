@@ -11,8 +11,13 @@ import React from 'react';
 
 const STATUS_MAP = {
   Verified: {
-    classes: 'bg-emerald-50 text-emerald-800 border-emerald-200',
-    dot: 'bg-emerald-500',
+    classes: 'bg-red-50 text-red-800 border-red-200',
+    dot: 'bg-red-500',
+    label: 'Verified',
+  },
+  Active: {
+    classes: 'bg-red-50 text-red-800 border-red-200',
+    dot: 'bg-red-500',
     label: 'Verified',
   },
   Unverified: {
@@ -21,8 +26,13 @@ const STATUS_MAP = {
     label: 'Unverified',
   },
   Resolved: {
-    classes: 'bg-gray-100 text-gray-600 border-gray-200',
-    dot: 'bg-gray-400',
+    classes: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    dot: 'bg-emerald-500',
+    label: 'Resolved',
+  },
+  Solved: {
+    classes: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+    dot: 'bg-emerald-500',
     label: 'Resolved',
   },
 };
