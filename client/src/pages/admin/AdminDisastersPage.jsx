@@ -20,6 +20,7 @@ const STATUS_BADGE = {
   Active: 'danger',
   Solved: 'success',
   False:  'warning',
+  Unverified: 'info',
 };
 
 const AdminDisastersPage = () => {

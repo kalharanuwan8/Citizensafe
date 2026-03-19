@@ -4,6 +4,15 @@ import Point from "../models/point.js";
 import User from "../models/user.js";
 //disaster creation
 export const createDisaster = async (data) =>{
+    const user = await User.findById(data.reportedBy);
+    if (user && user.verifiedBadge) {
+        data.status = "Active";
+        data.isConfirmed = true;
+    } else {
+        data.status = "Unverified";
+        data.isConfirmed = false;
+    }
+
     const newDisaster = new Disaster(data);
     const savedDisaster = await newDisaster.save();
 
@@ -24,7 +33,6 @@ export const createDisaster = async (data) =>{
     });
     await point.save();
 
-    const user = await User.findById(data.reportedBy);
     if (user) {
         user.points = (user.points || 0) + pointsAwarded;
         await user.save();
@@ -144,7 +152,10 @@ export const confirmDisaster = async (disasterId, userId, imageUrl) => {
     const disaster = await Disaster.findById(disasterId);
     if (disaster) {
         disaster.confirmationCount += 1;
-        if (disaster.confirmationCount >= 10 && disaster.status === "False") {
+        if (disaster.confirmationCount >= 5 && disaster.status === "Unverified") {
+            disaster.status = "Active";
+            disaster.isConfirmed = true;
+        } else if (disaster.confirmationCount >= 10 && disaster.status === "False") {
             disaster.status = "Active"; 
         }
         await disaster.save();

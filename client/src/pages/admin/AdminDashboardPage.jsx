@@ -16,9 +16,11 @@ const AdminDashboardPage = () => {
   const active  = disasters.filter(d => d.status === 'Active').length;
   const solved  = disasters.filter(d => d.status === 'Solved').length;
   const falsed  = disasters.filter(d => d.status === 'False').length;
+  const unverified = disasters.filter(d => d.status === 'Unverified').length;
 
   const summaryData = [
     { label: 'Total Reports',    value: loading ? '—' : String(total), icon: '🌍', color: 'bg-blue-50 text-blue-700' },
+    { label: 'Unverified',       value: loading ? '—' : String(unverified), icon: '⏳', color: 'bg-indigo-50 text-indigo-700' },
     { label: 'Active Disasters', value: loading ? '—' : String(active), icon: '🚨', color: 'bg-red-50 text-red-700' },
     { label: 'Resolved',         value: loading ? '—' : String(solved), icon: '✅', color: 'bg-emerald-50 text-emerald-700' },
     { label: 'False Reports',    value: loading ? '—' : String(falsed), icon: '⚠️', color: 'bg-amber-50 text-amber-700' },
@@ -49,7 +51,7 @@ const AdminDashboardPage = () => {
       </div>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         {summaryData.map((item, index) => (
           <div key={index} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex items-center gap-4">
             <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl ${item.color}`}>

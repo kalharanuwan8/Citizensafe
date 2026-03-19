@@ -33,7 +33,8 @@ const TYPE_LABEL = {
 const STATUS_MAP = {
   Active: 'Verified',
   Solved: 'Resolved',
-  False:  'Unverified',
+  False:  'False',
+  Unverified: 'Unverified',
 };
 
 const mapDisaster = (d, isHome = false) => ({

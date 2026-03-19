@@ -40,8 +40,8 @@ const disasterSchema = new mongoose.Schema ({
     },
     status:{
       type: String,
-      enum: ["Active", "Solved", "False"] ,
-      default: "Active"
+      enum: ["Active", "Solved", "False", "Unverified"] ,
+      default: "Unverified"
     }
 
 },
