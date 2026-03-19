@@ -2,12 +2,12 @@ import axios from 'axios'
 
 const getBaseURL = () => {
     const envUrl = import.meta.env.VITE_API_URL;
-    if (envUrl && !envUrl.includes('localhost')) {
-        return envUrl;
+    if (envUrl) {
+        // Ensure the URL always ends with /api
+        return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
     }
     
-    // If we're on a non-localhost host (like an IP address), 
-    // we should point the API calls to that same host on port 5000
+    // Fallback: point to same host on port 5000
     const hostname = window.location.hostname;
     return `http://${hostname}:5000/api`;
 };
