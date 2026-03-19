@@ -1,14 +1,14 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
-  const envUrl = import.meta.env.VITE_API_URL;
+    const envUrl = import.meta.env.VITE_API_URL;
 
-  if (!envUrl) {
-    console.error("❌ VITE_API_URL is not defined");
-    return "";
-  }
+    if (!envUrl) {
+        console.error("❌ VITE_API_URL is not defined");
+        return "";
+    }
 
-  return envUrl;
+    return envUrl;
 };
 
 const api = axios.create({
@@ -19,10 +19,9 @@ const api = axios.create({
 });
 
 
-api.interceptors.request.use((config)=>
-{
+api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token')
-    if (token){
+    if (token) {
         config.headers.Authorization = `Bearer ${token}`
     }
     return config;
