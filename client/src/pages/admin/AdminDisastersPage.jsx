@@ -136,7 +136,10 @@ const AdminDisastersPage = () => {
                       </td>
                       <td className="px-6 py-4">
                         <Badge variant={STATUS_BADGE[disaster.status] ?? 'warning'}>
-                          {disaster.status}
+                          {disaster.status === 'Active' ? 'Verified' :
+                           disaster.status === 'False' ? 'False Alarm' :
+                           disaster.status === 'Solved' ? 'Resolved' :
+                           disaster.status}
                         </Badge>
                       </td>
                       <td className="px-6 py-4 text-center">
