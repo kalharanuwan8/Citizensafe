@@ -1,15 +1,14 @@
 import axios from 'axios'
 
 const getBaseURL = () => {
-    const envUrl = import.meta.env.VITE_API_URL;
-    if (envUrl) {
-        // Ensure the URL always ends with /api
-        return envUrl.endsWith('/api') ? envUrl : `${envUrl}/api`;
-    }
-    
-    // Fallback: point to same host on port 5000
-    const hostname = window.location.hostname;
-    return `http://${hostname}:5000/api`;
+  const envUrl = import.meta.env.VITE_API_URL;
+
+  if (!envUrl) {
+    console.error("❌ VITE_API_URL is not defined");
+    return "";
+  }
+
+  return envUrl;
 };
 
 const api = axios.create({
